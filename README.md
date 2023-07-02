@@ -32,7 +32,7 @@ The AutoCompounder contract consists of the following key components:
 getUserDepositInfo: Returns the deposit information for a specific user, including the amount of USDC deposited, compounded USDC balance, amount of LP tokens deposited, and compounded LP balance.
 
 ### Deployment and Verification
-Change env.example to .env
+Change .env.example to .env
 
 1. Deployment
 - To deploy the Auto-Compound contract run the deployment script using Hardhat: `npx hardhat run-deploy --network bscTestnet`.
