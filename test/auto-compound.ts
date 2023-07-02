@@ -19,15 +19,12 @@ describe('AutoCompounder', () => {
     
     // Get signer address from private key
     signer = new ethers.Wallet(PRIVATE_KEY, provider);
-
+    console.log(signer.getAddress())
     const AutoCompounder = await ethers.getContractFactory('AutoCompounder');
     autoCompounder = await AutoCompounder.attach(
       // Provide the contract address here
       contractData.address
-    );
-
-    await autoCompounder.deployed();
-    
+    );    
   });
 
   it('should deposit USDC into MainPool and stake LP tokens to MasterWombatV2', async () => {
@@ -98,7 +95,7 @@ describe('AutoCompounder', () => {
 
     // Get the initial USDC balance of signer
     const usdcToken = await ethers.getContractAt('IERC20', USDC_TOKEN_ADDRESS, signer);
-    
+
     // Approve USDC transfer from signer to AutoCompounder contract
     await usdcToken.approve(autoCompounder.address, depositAmount);
 
