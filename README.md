@@ -1,4 +1,4 @@
-#### Auto-Compound Contract
+### Auto-Compound Contract
 The AutoCompounder contract automates the process of compounding rewards for users. It allows users to deposit USDC into a main pool and stake LP tokens to earn additional rewards. The contract handles the compounding process and updates the user's balances accordingly.
 
 ### Contract Structure
