@@ -22,7 +22,6 @@ contract AutoCompounder {
     IMainPool public mainPoolContract; // MainPool contract instance
     IMasterWombatV2 public masterWombatV2Contract; // MasterWombatV2 contract instance
     ISwapRouter public swapRouter; // swapRouter contract instance
-    uint24 public constant poolFee = 3000; // fee for swapping will set 0.3%
 
     struct DepositInfo {
         uint256 amountUSDCDeposited; // amount of deposited USDC 
@@ -106,7 +105,7 @@ contract AutoCompounder {
         ISwapRouter.ExactInputSingleParams({
             tokenIn: address(womTokenContract),
             tokenOut: address(usdcTokenContract),
-            fee: poolFee, // 0.3%
+            fee: 3000, // 0.3%
             recipient: address(this),
             deadline: block.timestamp,
             amountIn: womReward,
@@ -151,7 +150,8 @@ contract AutoCompounder {
         (uint256 womReward, ) = masterWombatV2Contract.withdraw(lpPoolId, totalUserLP);
         
         // Swap WOM to USDC and transfer to sender
-        ISwapRouter.ExactInputSingleParams memory params = ISwapRouter.ExactInputSingleParams({
+        ISwapRouter.ExactInputSingleParams memory params = 
+        ISwapRouter.ExactInputSingleParams({
             tokenIn: address(womTokenContract),
             tokenOut: address(usdcTokenContract),
             fee: 3000, // 0.3%

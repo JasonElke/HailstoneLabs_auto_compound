@@ -4,7 +4,7 @@ The AutoCompounder contract automates the process of compounding rewards for use
 ### Contract Structure
 The AutoCompounder contract consists of the following key components
 
-Auto-Compounding contract address: `0xf999908379e42C11e2dfCb4Ca82e94EA6C73B1dd`
+Auto-Compounding contract address: `0xC767879af2B9EA5335ae52320DC9b77e4C408D94`
 
 1. Variables
 - `womTokenContract`: WOM token contract instance.
