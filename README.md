@@ -2,7 +2,9 @@
 The AutoCompounder contract automates the process of compounding rewards for users. It allows users to deposit USDC into a main pool and stake LP tokens to earn additional rewards. The contract handles the compounding process and updates the user's balances accordingly.
 
 ### Contract Structure
-The AutoCompounder contract consists of the following key components:
+The AutoCompounder contract consists of the following key components
+
+Auto-Compounding contract address: `0xf999908379e42C11e2dfCb4Ca82e94EA6C73B1dd`
 
 1. Variables
 - `womTokenContract`: WOM token contract instance.
@@ -28,8 +30,6 @@ The AutoCompounder contract consists of the following key components:
 - `deposit`: Allows a user to deposit USDC into the main pool. It checks the user's USDC balance, compounds rewards if the contract holds WOM tokens, deposits USDC into the main pool, and stakes LP tokens in the MasterWombatV2 contract. It also updates the user's deposit balance and emits the Deposit event.
 - `compound`: Compounds rewards by swapping WOM tokens for USDC, depositing the obtained USDC back into the main pool, and staking the LP tokens in the MasterWombatV2 contract. It updates the compound balance for each user.
 - `withdraw`: Allows a user to withdraw their deposit. It compounds rewards if the contract holds WOM tokens, unstakes LP tokens from the MasterWombatV2 contract, swaps WOM tokens for USDC, withdraws USDC from the main pool, transfers the USDC to the user, and updates the user's deposit information. It emits the Withdraw event.
-- `totalDeposits`: Returns the total amount of deposited USDC and LP tokens across all users.
-getUserDepositInfo: Returns the deposit information for a specific user, including the amount of USDC deposited, compounded USDC balance, amount of LP tokens deposited, and compounded LP balance.
 
 ### Deployment and Verification
 Change .env.example to .env

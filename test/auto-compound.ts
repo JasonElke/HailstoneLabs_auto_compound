@@ -38,7 +38,7 @@ describe('AutoCompounder', () => {
     await usdcToken.approve(autoCompounder.address, depositAmount);
 
     // Deposit USDC into AutoCompounder contract
-    const [amountUSDC, amountLP] = await autoCompounder.connect(signer).deposit(depositAmount);
+    const amountLP = await autoCompounder.connect(signer).deposit(depositAmount);
 
     // Check the deposit event was emitted
     const depositEvent = await autoCompounder.queryFilter(autoCompounder.filters.Deposit());
@@ -46,7 +46,7 @@ describe('AutoCompounder', () => {
 
     // Check the deposit balances
     const [amountUSDCDeposited, amountLPDeposited] = await autoCompounder.getUserDepositInfo(await signer.getAddress());
-    expect(amountUSDCDeposited).to.equal(amountUSDC);
+    expect(amountUSDCDeposited).to.equal(depositAmount);
     expect(amountLPDeposited).to.equal(amountLP);
 
     // Get the final USDC balance of signer
@@ -65,7 +65,7 @@ describe('AutoCompounder', () => {
 
     // Approve USDC transfer from signer to AutoCompounder contract
     await usdcToken.approve(autoCompounder.address, depositAmount);
-
+    
     // Deposit USDC into AutoCompounder contract
     await autoCompounder.connect(signer).deposit(depositAmount);
 
