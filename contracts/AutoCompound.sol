@@ -47,8 +47,8 @@ contract AutoCompounder {
         // Assert sufficient USDC balance 
         require(usdcTokenContract.balanceOf(msg.sender) >= amount, "Insufficient USDC balance!");
 
-        // Check contract have deposited user or not in order to compound before handle depositing
-        if(depositAddresses.length > 0){
+        // Check contract have WOM or not in order to compound before depositing
+        if(womTokenContract.balanceOf(address(this)) > 0){
             compound();
         }
 
@@ -123,8 +123,8 @@ contract AutoCompounder {
         // Assert user deposited or not 
         require(depositInfo.amountUSDCDeposited > 0, "No deposits to withdraw!");
 
-        // Check contract have deposited user or not in order to compound before handle depositing
-        if(depositAddresses.length > 0){
+        // Check contract have WOM or not in order to compound before depositing
+        if(womTokenContract.balanceOf(address(this)) > 0){
             compound();
         }
 
