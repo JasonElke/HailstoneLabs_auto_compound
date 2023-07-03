@@ -47,13 +47,13 @@ contract AutoCompounder {
         // Assert sufficient USDC balance 
         require(usdcTokenContract.balanceOf(msg.sender) >= amount, "Insufficient USDC balance!");
 
-        // Check contract have WOM or not in order to compound before depositing
-        if(womTokenContract.balanceOf(address(this)) > 0){
+        // Check contract have deposited user or not in order to compound before handle depositing
+        if(depositAddresses.length > 0){
             compound();
         }
 
         // Deposit USDC into MainPool
-        uint256 liquidity = mainPoolContract.deposit(address(usdcTokenContract), amount, 0, address(this), block.timestamp + 1, true);
+        uint256 liquidity = mainPoolContract.deposit(address(usdcTokenContract), amount, 0, address(this), block.timestamp + 1000, false);
 
         // Get USDC pool id and stake LP tokens to MasterWombatV2
         masterWombatV2Contract.deposit(masterWombatV2Contract.getAssetPid(address(mainPoolContract)), liquidity);
@@ -101,7 +101,7 @@ contract AutoCompounder {
         uint256 amountOut = swapRouter.exactInputSingle(params);
 
         // Compound the obtained USDC back to the Main pool
-        uint256 liquidity = mainPoolContract.deposit(address(usdcTokenContract), amountOut, 0, address(this), block.timestamp + 1, true);
+        uint256 liquidity = mainPoolContract.deposit(address(usdcTokenContract), amountOut, 0, address(this), block.timestamp + 1000 , false);
 
         // Compound the LP tokens back to MasterWombatV2
         masterWombatV2Contract.deposit(usdcPoolId, liquidity);
@@ -112,8 +112,8 @@ contract AutoCompounder {
             address user = depositAddresses[i];
             DepositInfo storage depositInfo = deposits[user];
             // Calculate USDC and LP compound balance
-            depositInfo.compoundUSDCBalance = depositInfo.compoundUSDCBalance + (amountOut * depositInfo.compoundUSDCBalance/totalUSDCDeposited);
-            depositInfo.compoundLPBalance = depositInfo.compoundLPBalance + (liquidity * depositInfo.compoundLPBalance/totalLPDeposited);
+            depositInfo.compoundUSDCBalance = depositInfo.compoundUSDCBalance + (amountOut * depositInfo.amountUSDCDeposited/totalUSDCDeposited);
+            depositInfo.compoundLPBalance = depositInfo.compoundLPBalance + (liquidity * depositInfo.amountLPDeposited/totalLPDeposited);
         }
     }
 
@@ -123,10 +123,11 @@ contract AutoCompounder {
         // Assert user deposited or not 
         require(depositInfo.amountUSDCDeposited > 0, "No deposits to withdraw!");
 
-        // Check contract have WOM or not in order to compound before withdrawing
-        if(womTokenContract.balanceOf(address(this)) > 0){
+        // Check contract have deposited user or not in order to compound before handle depositing
+        if(depositAddresses.length > 0){
             compound();
         }
+
 
         uint256 usdcPoolId = masterWombatV2Contract.getAssetPid(address(usdcTokenContract));
         uint256 totalUserLP = depositInfo.amountLPDeposited + depositInfo.compoundLPBalance;
