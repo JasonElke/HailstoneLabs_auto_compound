@@ -19,7 +19,7 @@ describe('AutoCompounder', () => {
     
     // Get signer address from private key
     signer = new ethers.Wallet(PRIVATE_KEY, provider);
-    console.log(signer.getAddress())
+    
     const AutoCompounder = await ethers.getContractFactory('AutoCompounder');
     autoCompounder = await AutoCompounder.attach(
       // Provide the contract address here
