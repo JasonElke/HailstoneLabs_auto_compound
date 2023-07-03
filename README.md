@@ -4,7 +4,7 @@ The AutoCompounder contract automates the process of compounding rewards for use
 ### Contract Structure
 The AutoCompounder contract consists of the following key components
 
-Auto-Compounding contract address: `0xC767879af2B9EA5335ae52320DC9b77e4C408D94`
+Auto-Compounding contract address: `0x69A67391688dC75779B8C3819C3d698a6d2b173c`
 
 1. Variables
 - `womTokenContract`: WOM token contract instance.
@@ -12,7 +12,7 @@ Auto-Compounding contract address: `0xC767879af2B9EA5335ae52320DC9b77e4C408D94`
 - `lpTokenContract`: LP token contract instance.
 - `mainPoolContract`: MainPool contract instance.
 - `masterWombatV2Contract`: MasterWombatV2 contract instance.
-- `swapRouter`: SwapRouter contract instance.
+- `lpPool`: WOM-USDC Pool contract instance.
 
 2. Events
 - `Deposit`: Emitted when a user makes a deposit. Contains the user's address, the amount of USDC deposited, and the corresponding amount of LP tokens.
