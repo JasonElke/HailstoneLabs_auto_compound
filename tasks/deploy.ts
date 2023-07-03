@@ -7,9 +7,9 @@ task('deploy', 'Deploys the contract')
   .setAction(async (taskArgs, { ethers, run }) => {
     await run("compile");
     const [deployer] = await ethers.getSigners();
-    const { WOM_TOKEN_ADDRESS, USDC_TOKEN_ADDRESS, LP_TOKEN_ADDRESS, MAIN_POOL_ADDRESS, MASTER_WOMBAT_V2_ADDRESS, PANCAKE_ROUTER_ADDRESS } = process.env;
+    const { WOM_TOKEN_ADDRESS, USDC_TOKEN_ADDRESS, LP_TOKEN_ADDRESS, MAIN_POOL_ADDRESS, MASTER_WOMBAT_V2_ADDRESS, LP_PANCAKE_V3_ADDRESS } = process.env;
 
-    if (!WOM_TOKEN_ADDRESS || !USDC_TOKEN_ADDRESS || !LP_TOKEN_ADDRESS || !MAIN_POOL_ADDRESS || !MASTER_WOMBAT_V2_ADDRESS || !PANCAKE_ROUTER_ADDRESS) {
+    if (!WOM_TOKEN_ADDRESS || !USDC_TOKEN_ADDRESS || !LP_TOKEN_ADDRESS || !MAIN_POOL_ADDRESS || !MASTER_WOMBAT_V2_ADDRESS || !LP_PANCAKE_V3_ADDRESS) {
       console.error('Missing environment variables');
       return;
     }
@@ -20,7 +20,7 @@ task('deploy', 'Deploys the contract')
     console.log(` - LP Token Address: ${LP_TOKEN_ADDRESS}`);
     console.log(` - Main Pool Address: ${MAIN_POOL_ADDRESS}`);
     console.log(` - MasterWombatV2 Address: ${MASTER_WOMBAT_V2_ADDRESS}`);
-    console.log(` - Pancake Router Address: ${PANCAKE_ROUTER_ADDRESS}`);
+    console.log(` - Pancake Router Address: ${LP_PANCAKE_V3_ADDRESS}`);
 
     const AutoCompounder = await ethers.getContractFactory('AutoCompounder');
     const autoCompounder = await AutoCompounder.deploy(
@@ -29,7 +29,7 @@ task('deploy', 'Deploys the contract')
       LP_TOKEN_ADDRESS,
       MAIN_POOL_ADDRESS,
       MASTER_WOMBAT_V2_ADDRESS,
-      PANCAKE_ROUTER_ADDRESS
+      LP_PANCAKE_V3_ADDRESS
     );
 
     await autoCompounder.deployed();

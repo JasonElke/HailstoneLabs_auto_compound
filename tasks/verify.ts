@@ -25,7 +25,7 @@ task('verify', 'Verifies the deployed contract on Bscscan')
           process.env.LP_TOKEN_ADDRESS!,
           process.env.MAIN_POOL_ADDRESS!,
           process.env.MASTER_WOMBAT_V2_ADDRESS!,
-          process.env.PANCAKE_ROUTER_ADDRESS!
+          process.env.LP_PANCAKE_V3_ADDRESS!
         ],
         apiKey: BSCSCAN_API_KEY,
         network: 'mainnet' // Adjust for the desired network
