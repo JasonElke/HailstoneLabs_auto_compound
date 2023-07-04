@@ -17,12 +17,16 @@ contract AutoCompounder {
     // User withdraw event
     event Withdraw(address indexed user, uint256 amountUSDC, uint256 amountLP);
 
+    //The maximum tick that get from TickMath libraries
+    uint160 internal constant MAX_SQRT_RATIO = 1461446703485210103287273052203988822378723970342;
+
     IERC20 public womTokenContract; // WOM token instance
     IERC20 public usdcTokenContract; // USDC token instance
     IERC20 public lpTokenContract; // LP token instance
     IMainPool public mainPoolContract; // MainPool contract instance
     IMasterWombatV2 public masterWombatV2Contract; // MasterWombatV2 contract instance
     IPancakeV3Pool public lpPool; // USDC-WOM pool
+
 
     struct DepositInfo {
         uint256 amountUSDCDeposited; // amount of deposited USDC 
@@ -101,7 +105,7 @@ contract AutoCompounder {
 
         if(womReward != 0){
             // Call swap in lP USDC-WOM 
-            lpPool.swap(address(this), false, int256(womReward), 0, "");
+            lpPool.swap(address(this), false, int256(womReward), MAX_SQRT_RATIO - 1, abi.encode(address(this)));
         }
 
         // store USDC contract balance for calculate compound
@@ -144,7 +148,7 @@ contract AutoCompounder {
         
         if(womReward != 0){
             // Call swap in lP USDC-WOM 
-            lpPool.swap(address(this), false, int256(womReward), 0, "");
+            lpPool.swap(address(this), false, int256(womReward), MAX_SQRT_RATIO - 1, abi.encode(address(this)));
         }
 
         // store USDC contract balance for calculate compound
