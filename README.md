@@ -43,11 +43,7 @@ Change .env.example to .env
 3. Tests
 - To run the tests, execute the following command: `npx hardhat test`.
 
-### Answer the question
-1.  I spent about 10 hours completing the configuration, developing the smart contract logic and creating the test cases for the unit tests.
-2. Based on the specs of the Auto-Compound smart contract, here are some suggestions to improve and optimize the contract if I have more time to construct:
- - Add Upgradeable Contract: Implement an upgradeable contract pattern to ensure flexibility and the ability to update the contract's logic without disrupting existing deployments. 
-
+### Considered Features
  - Added risk-reducing features: Contracts can be enhanced by adding risk-reducing features, including checking and verifying actions before executing them. For example, check the balance is sufficient for USDC deposit or USDC withdrawal, verify the validity of user and contract addresses before interacting with them.
 
  - Security and Decentralization: Ensure that only authorized users can deposit and withdraw USDC, and only have access to contract management and update functions. This helps prevent unauthorized access and protect user data.
